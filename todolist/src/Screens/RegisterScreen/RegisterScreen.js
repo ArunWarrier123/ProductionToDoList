@@ -8,47 +8,43 @@ import ErrorMessage from '../../components/ErrorMessage'
 export default function RegisterScreen() {
 
     //states
-
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [messages , setMessages] = useState("")
+    const [messages, setMessages] = useState("")
 
     const navigate = useNavigate()
+
 
     const registerHandler = async (e) => {
         e.preventDefault()
         setMessages("")
-        console.log('Form submitted ' + email + " " + password + " " + name)
 
-            try {
-                const config = {
-                    headers: {
-                        'Content-type': 'application/json'
-                    }
+        try {
+            const config = {
+                headers: {
+                    'Content-type': 'application/json'
                 }
-                console.log('axios returned')
+            }
+            console.log('axios returned')
 
-                const { data } = await axios.post('https://finalproductiontodo.onrender.com/api/users/register', {
-                    name , email, password
-                }, config)
-                    console.log('axios returned')
-                
-                    localStorage.setItem('name', name)
-                    localStorage.setItem('isLoggedIn', true)
-                    navigate('/home')
-                
-            }
-            catch (error) {
-                console.log(error)
-                setMessages(error.response.data)
-            }
+            const { data } = await axios.post('https://finalproductiontodo.onrender.com/api/users/register', {
+                name, email, password
+            }, config)
+
+            localStorage.setItem('name', name)
+            localStorage.setItem('isLoggedIn', true)
+            navigate('/home')
+
         }
-    
+        catch (error) {
+            setMessages(error.response.data)
+        }
+    }
+
 
 
     useEffect(() => {
-
         if (localStorage.getItem('isLoggedIn')) navigate('/home')
     }, [])
 

@@ -3,80 +3,76 @@ import { Container, Card, Button } from 'react-bootstrap'
 import "./HomeScreen.css"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch , useSelector} from 'react-redux'
-// import { taskAdderAction } from '../../actions/taskActions'
-// import taskActions from '../../actions/taskActions'
-// const { taskAdderAction } = taskActions
+import { useDispatch, useSelector } from 'react-redux'
+
 
 
 export default function HomeScreen() {
 
     const [taskString, setTaskString] = useState("")
-    // const [todos, setTodos] = useState([]);
     const [name, setName] = useState(localStorage.getItem('name'))
 
     const navigate = useNavigate()
     let ignore = false
+
     //state management
     const dispatch = useDispatch()
-    const Taskred = useSelector((state ) => state.Taskred) 
+    const Taskred = useSelector((state) => state.Taskred)
     let { tasks } = Taskred || {};
 
-    // setTodos(tasks)
+    //state action function for adding task
+    const taskAdderAction = (taskString) => (dispatch, getState) => {
+        const { Taskred: { tasks } } = getState();
 
-    const taskAdderAction = (taskString) =>(dispatch , getState) =>{
-        const { Taskred : { tasks }} = getState();
-    
-        const hasToDo = tasks.find((i) => i.task === taskString );
-    
-        if(!hasToDo && taskString !== ""){
-            // console.log(taskString)
+        const hasToDo = tasks.find((i) => i.task === taskString);
+
+        if (!hasToDo && taskString !== "") {
             dispatch({
                 type: "ADD_TASK",
-                payload: [ {id: taskString , taskString} , ...tasks]
+                payload: [{ id: taskString, taskString }, ...tasks]
             })
         }
     }
 
-    const taskRemoverAction = (taskString) => (dispatch , getState) =>{
-        const{ Taskred: { tasks }} = getState()
-    
+
+    //state function for deleting a task
+    const taskRemoverAction = (taskString) => (dispatch, getState) => {
+        const { Taskred: { tasks } } = getState()
+
         dispatch({
-            type:"DELETE_TASK",
+            type: "DELETE_TASK",
             payload: tasks.filter((t) => t.id !== taskString)
         })
-    
     }
 
 
     const fetchData = async () => {
         try {
-            
+
             const { data } = await axios.get(`https://finalproductiontodo.onrender.com/api/tasks/retrieve/${name}`)
-            
+
             if (data) {
-                // setTodos(data)
                 tasks = null
                 data.forEach(element => {
-                dispatch(taskAdderAction(element))    
+                    dispatch(taskAdderAction(element))
                 });
-                console.log(data)
             }
         }
         catch (error) {
             console.log(error)
         }
     }
-// fetchData()
+
+
     useEffect(() => {
-        if(!localStorage.getItem('isLoggedIn')) navigate('/login')
-        
-        if(!ignore){
-        fetchData()
-        ignore = true;
+        if (!localStorage.getItem('isLoggedIn')) navigate('/login')
+
+        if (!ignore) {
+            fetchData()
+            ignore = true;
         }
         setName(localStorage.getItem('name'))
-    },[])
+    }, [])
 
 
     const taskAdder = async (e) => {
@@ -89,21 +85,14 @@ export default function HomeScreen() {
                     'Content-type': 'application/json'
                 }
             }
-            // const name = localStorage.getItem('name')
-            // console.log(name)
             const { data } = await axios.post('https://finalproductiontodo.onrender.com/api/tasks/add', {
                 name,
                 taskString
             }, config)
-            // console.log(data)
-            if (data) {
-                console.log('data shud be added')
-                // setTasks(data)
-                dispatch(taskAdderAction(taskString))
-                window.localStorage.setItem('state' , JSON.stringify(tasks))
-                // fetchData()
 
-                console.log(tasks)
+            if (data) {
+                dispatch(taskAdderAction(taskString))
+                window.localStorage.setItem('state', JSON.stringify(tasks))
             }
         }
         catch (error) {
@@ -111,10 +100,8 @@ export default function HomeScreen() {
         }
     }
 
-   async function deleteTaskHandler (e, taskString){
+    async function deleteTaskHandler(e, taskString) {
         e.preventDefault()
-        // const taskString = tasks[taskindex]
-        console.log(taskString)
 
         try {
             const config = {
@@ -125,13 +112,9 @@ export default function HomeScreen() {
             const name = localStorage.getItem('name')
             console.log(name)
             const { data } = await axios.delete(`https://finalproductiontodo.onrender.com/api/tasks/delete/${name}/${taskString}`)
-            // console.log(data)
             if (data) {
                 console.log('data shud be deleted')
-                // setTasks(data)
-                // fetchData()
                 dispatch(taskRemoverAction(taskString))
-                console.log(data)
             }
         }
         catch (error) {
@@ -146,14 +129,12 @@ export default function HomeScreen() {
 
             <Container>
 
-                <div class="input-group mb-3" className='newtaskgroup'>
-                    <input type="text" class="form-control" value={taskString} onChange={(e) => setTaskString(e.target.value)} placeholder="Enter a Task" aria-label="Enter a Task" aria-describedby="button-addon2" />
-                    <button class="btn  addtaskbtn" type="button" id="button-addon2" onClick={taskAdder}>Button</button>
+                <div className="input-group mb-3 newtaskgroup">
+                    <input type="text" className="form-control" value={taskString} onChange={(e) => setTaskString(e.target.value)} placeholder="Enter a Task" aria-label="Enter a Task" aria-describedby="button-addon2" />
+                    <button className="btn  addtaskbtn" type="button" id="button-addon2" onClick={taskAdder}>Button</button>
                 </div>
-
                 {
-                   tasks && tasks.map((todocurr , index) => {
-                        // console.log("hi");
+                    tasks && tasks.map((todocurr) => {
                         return <div className='tasks'>
                             <Card style={{ width: '50rem' }}>
                                 <Card.Body>
@@ -162,7 +143,7 @@ export default function HomeScreen() {
                                             <Card.Title>{todocurr.taskString}</Card.Title>
                                         </div>
 
-                                        <Button variant='danger' className='deletebtn' onClick={ e => deleteTaskHandler(e, todocurr.taskString) }>
+                                        <Button variant='danger' className='deletebtn' onClick={e => deleteTaskHandler(e, todocurr.taskString)}>
                                             Delete Task
                                         </Button>
                                     </div>
@@ -172,8 +153,6 @@ export default function HomeScreen() {
                         </div>
                     })
                 }
-
-
             </Container>
         </>
     )

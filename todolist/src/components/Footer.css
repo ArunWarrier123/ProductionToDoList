@@ -1,3 +1,8 @@
 .footer{
-    padding-top: 15rem;
+    /* padding-top: 15rem;
+     */
+
+     position: fixed;
+     bottom: 0;
+     width: 100%;
 }

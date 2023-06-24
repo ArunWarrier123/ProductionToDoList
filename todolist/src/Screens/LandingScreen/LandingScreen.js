@@ -1,6 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import { Container , Button , Row , Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { Container, Button, Row, Col } from 'react-bootstrap'
 import './LandingScreen.css'
 
 export default function LandingScreen() {
@@ -8,9 +8,6 @@ export default function LandingScreen() {
         <div className='main'>
             <Container>
                 <Row>
-                    <div>
-                    <img src="../../background1.jpg" alt="" />
-                    </div>
                     <div className='introtext'>
                         <div>
                             <h1 className='title'>Welcome to "To Do"</h1>

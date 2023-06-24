@@ -2,12 +2,10 @@
 
 .Heading {
     text-align: center;
-    /* align-items: center; */
     padding-top: 100px;
     font-size: 60px;
     color: #0059C1;
     font-family: 'Racing Sans One', cursive;
-    /* font-family: 'Work Sans', sans-serif; */
 }
 
 .newtaskgroup{
@@ -30,7 +28,6 @@
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
-    /* width: 500px; */
 }
 
 .deletebtn{
