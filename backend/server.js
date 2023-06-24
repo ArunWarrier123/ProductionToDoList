@@ -8,7 +8,7 @@ dotenv.config()
 const connectDB = require('./dbOps/dbConnector')
 
 //options configurations
-const allowedOrigins = ['http://127.0.0.1:5500' , 'http://localhost:3000' , 'https://amazingtodo.onrender.com/'];
+const allowedOrigins = ['http://127.0.0.1:5500' , 'http://localhost:3000' , 'https://amazingtodo.onrender.com'];
 const corsOptions = {
     origin: (origin, callback) => {
         if(allowedOrigins.indexOf(origin) !== -1 || !origin) { //!origin  is written cuz localhost gives undefined as origin
