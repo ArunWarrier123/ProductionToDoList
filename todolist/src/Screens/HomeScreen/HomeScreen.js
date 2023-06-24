@@ -147,7 +147,7 @@ export default function HomeScreen() {
             <Container>
 
                 <div class="input-group mb-3" className='newtaskgroup'>
-                    <input type="text" class="form-control" value={taskString} onChange={(e) => setTaskString(e.target.value)} placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                    <input type="text" class="form-control" value={taskString} onChange={(e) => setTaskString(e.target.value)} placeholder="Enter a Task" aria-label="Enter a Task" aria-describedby="button-addon2" />
                     <button class="btn  addtaskbtn" type="button" id="button-addon2" onClick={taskAdder}>Button</button>
                 </div>
 

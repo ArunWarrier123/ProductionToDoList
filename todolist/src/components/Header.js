@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import './Header.css'
 
 export default function Header() {
 
@@ -25,14 +26,14 @@ export default function Header() {
                 <Container >
                    
                     <Nav.Link >
-                      <Link to='/mynotes'>  Urgent Tasks</Link>
+                      <Link to='/mynotes' className='headName'>  Urgent Tasks</Link>
                         </Nav.Link>
                         {localStorage.getItem('isLoggedIn') !== null ? (
-                            <NavDropdown title= {localStorage.getItem('name')} id="navbarScrollingDropdown">
+                            <NavDropdown title= {localStorage.getItem('name')} id="navbarScrollingDropdown" className='headName'>
                             <NavDropdown.Item href="/">My Profile</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/" onClick={ logoutHandler }>
-                                Logout
+                                 Logout
                             </NavDropdown.Item>
                         </NavDropdown>
                         ):( <></>)
