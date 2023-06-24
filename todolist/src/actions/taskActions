@@ -1,0 +1,24 @@
+export  const taskAdderAtion = (taskString) =>(dispatch , getState) =>{
+    const { Taskred : { tasks }} = getState();
+
+    const hasToDo = tasks.find((i) => i.task === taskString );
+    console.log(taskString)
+    if(!hasToDo && taskString !== ""){
+        dispatch({
+            type: "ADD_TASK",
+            payload: [ {  
+                id: taskString , taskString} , ...tasks]
+        })
+    }
+}
+
+export const taskRemoverAction = (task) => (dispatch , getState) =>{
+    const{ Taskred: { tasks }} = getState()
+
+    dispatch({
+        type:"DELETE_TASK",
+        payload: tasks.filter((t) => t.id !== task.id)
+    })
+
+}
+
