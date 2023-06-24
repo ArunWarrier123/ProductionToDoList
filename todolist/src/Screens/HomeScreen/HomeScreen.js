@@ -52,7 +52,7 @@ export default function HomeScreen() {
     const fetchData = async () => {
         try {
             
-            const { data } = await axios.get(`http://localhost:5000/api/tasks/retrieve/${name}`)
+            const { data } = await axios.get(`https://finalproductiontodo.onrender.com/api/tasks/retrieve/${name}`)
             
             if (data) {
                 // setTodos(data)
@@ -91,7 +91,7 @@ export default function HomeScreen() {
             }
             // const name = localStorage.getItem('name')
             // console.log(name)
-            const { data } = await axios.post('http://localhost:5000/api/tasks/add', {
+            const { data } = await axios.post('https://finalproductiontodo.onrender.com/api/tasks/add', {
                 name,
                 taskString
             }, config)
@@ -124,7 +124,7 @@ export default function HomeScreen() {
             }
             const name = localStorage.getItem('name')
             console.log(name)
-            const { data } = await axios.delete(`http://localhost:5000/api/tasks/delete/${name}/${taskString}`)
+            const { data } = await axios.delete(`https://finalproductiontodo.onrender.com/api/tasks/delete/${name}/${taskString}`)
             // console.log(data)
             if (data) {
                 console.log('data shud be deleted')

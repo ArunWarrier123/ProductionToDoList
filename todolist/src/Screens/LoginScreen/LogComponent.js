@@ -30,7 +30,7 @@ export default function LogComponent() {
                     }
                 }
     
-                const { data } = await axios.post('http://localhost:5000/api/users/login', {
+                const { data } = await axios.post('https://finalproductiontodo.onrender.com/api/users/login', {
                     email, password
                 }, config)
     

@@ -29,7 +29,7 @@ export default function RegisterScreen() {
                 }
                 console.log('axios returned')
 
-                const { data } = await axios.post('http://localhost:5000/api/users/register', {
+                const { data } = await axios.post('https://finalproductiontodo.onrender.com/api/users/register', {
                     name , email, password
                 }, config)
                     console.log('axios returned')
