@@ -6,9 +6,9 @@
   "scripts": {
     "install-server": "cd backend && npm install",
     "start-server": "cd backend && node server.js",
-    "install-client": "cd client && npm install",
-    "build-client": "cd client && npm run build",
-    "start-client": "cd client && npm run start"
+    "install-client": "cd todolist && npm install",
+    "build-client": "cd todolist && npm run build",
+    "start-client": "cd todolist && npm run start"
   },
   "keywords": [],
   "author": "",
