@@ -4,8 +4,7 @@ const  taskcontrollerfile = require('../controllers/taskController')
 
 //handles succesfull and unsuccesfull login attempts
 const loginController = async (req , res , next) =>{
-    // res.send('User Log in called')
-
+    
     //store the data i.e email,password and check against db
     const { email , password } = req.body
 
@@ -13,15 +12,9 @@ const loginController = async (req , res , next) =>{
 
     if(userExists){
         const hashedpw = userExists.hashedpw
-        // console.log(hashedpw)
         const confirmpw = await matchedPassword(password , hashedpw) 
-        if( confirmpw)
-        {
-            res.json(userExists)
-        }
-        else{
-            res.status(401).send('Invalid password ')
-        }
+        if( confirmpw) res.json(userExists)
+        else res.status(401).send('Invalid password ')
     }
     else{
         res.status(401).send('No Such User Exists')
@@ -31,9 +24,7 @@ const loginController = async (req , res , next) =>{
 
 //handles succesfull and unsuccesfull signup attempts
 const registerController = async (req , res , next) =>{
-    // res.send('User reg in called')
-    console.log('reg controller called')
-
+    
     const {name , email , password } = req.body;
 
     const userExists = await usermodel.findOne({ email })
@@ -65,7 +56,7 @@ const registerController = async (req , res , next) =>{
 }
 
 
-//handles logout functionality
+//handles logout functionality not used currently
 const logoutController = (req , res , next) =>{
     res.send('User Log out called')
 }
